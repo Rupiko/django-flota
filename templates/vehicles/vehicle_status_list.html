@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Statusy pojazdów{% endblock %}
+
+{% block content %}
+<h2>Statusy pojazdów</h2>
+<table>
+  <tr>
+    <th>Marka i Model</th>
+    <th>Numer rejestracyjny</th>
+    <th>Ostatni status</th>
+    <th>Data ostatniej zmiany</th>
+    <th>Zmieniony przez</th>
+  </tr>
+  {% for vehicle in vehicles %}
+  <tr>
+    <td>{{ vehicle.make }} {{ vehicle.model }}</td>
+    <td>{{ vehicle.registration_number }}</td>
+    <td>{{ vehicle.get_last_status_display }}</td>
+    <td>{{ vehicle.last_status_date|date:"Y-m-d H:i" }}</td>
+    <td>{{ vehicle.last_status_by.username }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

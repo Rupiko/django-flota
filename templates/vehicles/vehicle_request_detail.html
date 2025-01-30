@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Szczegóły wniosku{% endblock %}
+{% block content %}
+<h2>Wniosek #{{ req.id }}</h2>
+<p>Użytkownik: {{ req.user }}</p>
+<p>Pojazd: {{ req.vehicle.registration_number }}</p>
+<p>Status: {{ req.get_status_display }}</p>
+<p>Data złożenia: {{ req.created_at }}</p>
+<p>Cel: {{ req.purpose }}</p>
+{% if is_owner %}
+<p>Jesteś właścicielem, możesz zatwierdzić wniosek:</p>
+<a href="{% url 'approve_request_view' req.id %}">Zatwierdź wniosek</a> |
+<a href="{% url 'reject_request_view' req.id %}" onclick="return confirm('Czy na pewno chcesz odrzucić ten wniosek?');">Odrzuć wniosek</a>
+
+<h3>Historia zmian</h3>
+<table>
+  <tr>
+    <th>Data zmiany</th>
+    <th>Poprzedni status</th>
+    <th>Nowy status</th>
+    <th>Zmieniony przez</th>
+  </tr>
+  {% for history in req.history.all %}
+  <tr>
+    <td>{{ history.change_date|date:"Y-m-d H:i" }}</td>
+    <td>{{ history.get_previous_status_display }}</td>
+    <td>{{ history.get_new_status_display }}</td>
+    <td>{{ history.changed_by.username }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

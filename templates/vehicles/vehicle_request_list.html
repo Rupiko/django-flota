@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Moje wnioski</h2>
+<ul>
+  {% for req in requests %}
+    <li>
+      <a href="{% url 'vehicles:vehicle_request_detail' req.id %}">Wniosek #{{ req.id }}</a>
+      - {{ req.get_status_display }}
+    </li>
+  {% empty %}
+    <p>Brak wniosków</p>
+  {% endfor %}
+</ul>
+{% endblock %}

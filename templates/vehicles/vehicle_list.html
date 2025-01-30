@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Lista pojazdów{% endblock title %}
+{% block content %}
+{% if vehicles %}
+  <ul>
+    {% for v in vehicles %}
+      <li>{{ v.make }} {{ v.model }} ({{ v.registration_number }})</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Brak dostępnych pojazdów.</p>
+{% endif %}
+<h2>Lista pojazdów</h2>
+<ul>
+  {% for v in vehicles %}
+    <li>{{ v.make }} {{ v.model }} ({{ v.registration_number }})</li>
+  {% endfor %}
+</ul>
+{% endblock content %}

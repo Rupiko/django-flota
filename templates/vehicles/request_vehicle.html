@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Złóż wniosek o pojazd{% endblock %}
+{% block content %}
+<h2>Wniosek o pojazd służbowy</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Wyślij wniosek</button>
+</form>
+{% endblock %}
